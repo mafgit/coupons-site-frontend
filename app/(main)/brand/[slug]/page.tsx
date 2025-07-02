@@ -26,11 +26,11 @@ const BrandPage = async ({ params }: { params: { slug: string } }) => {
               <p className="text-sm font-light">{brand.description}</p>
             </div>
             <div className="flex flex-col items-center justify-center gap-4">
-              <p className="bg-primary/50 p-2 w-full flex items-center justify-center gap-1 rounded-md text-sm">
+              <p className="text-white bg-[#76a6e6] p-2 w-full flex items-center justify-center gap-1 rounded-md text-sm">
                 <FaUsers /> <span>35K</span>
               </p>
               <Link
-                className="bg-gray-300 rounded-md p-2 w-max flex items-center justify-center gap-1 text-sm"
+                className="text-white bg-[#76a6e6] rounded-md p-2 w-max flex items-center justify-center gap-1 text-sm"
                 href={brand.website}
                 target="_blank"
               >

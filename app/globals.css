@@ -61,6 +61,40 @@ a * {
   pointer-events: all;
 }
 
-button span, a span {
+button span,
+a span {
   pointer-events: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #fafafa;
+
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: #fafafa;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1ec27e;
+  border-radius: 50px 50px;
+}
+
+
+.custom-scrollbar *::-webkit-scrollbar-track {
+  background: #fafafa;
+
+}
+
+.custom-scrollbar *::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: #fafafa;
+}
+
+.custom-scrollbar *::-webkit-scrollbar-thumb {
+  background: #1ec27e;
+  border-radius: 50px 50px;
 }

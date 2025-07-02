@@ -22,8 +22,8 @@ export default async function Home() {
       <Search />
 
       <div className="flex flex-col gap-4 items-center py-[50px] justify-center ">
-        <h1 className="text-2xl font-semibold text-primary">
-          Discounted Coupons
+        <h1 className="text-2xl font-bold text-primary">
+          Coupons
         </h1>
 
         {Object.keys(data).map((x) => (

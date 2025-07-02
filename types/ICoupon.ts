@@ -7,5 +7,6 @@ export interface ICoupon {
   brand: IBrand;
   price: number;
   terms_and_conditions: string;
-  type: 'code' | 'deal';
+  type: "code" | "deal";
+  verified: boolean;
 }

@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import Navbar from "@/components/dashboard/Navbar";
 import { Poppins } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
+import "../globals.css";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +14,7 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-export default function RootLayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

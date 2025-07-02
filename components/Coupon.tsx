@@ -26,29 +26,45 @@ const Coupon = ({
 
         <div className="grow-[3]">
           <h3 className="font-semibold">{coupon.title}</h3>
-          <button
-            onClick={() => setDetailsOpened(!detailsOpened)}
-            className="flex items-center justify-center gap-1 font-light text-sm"
-          >
-            <span>Detail</span>
-            {!detailsOpened ? (
-              <FaChevronDown className="text-xs" />
-            ) : (
-              <FaChevronUp className="text-xs" />
-            )}
-          </button>
+
+          <div className="flex gap-2 mt-2">
+            <span className="bg-[#76a6e6] text-white px-2 py-1 rounded-md text-xs text-center">
+              2.5K Used
+            </span>
+            <button
+              onClick={() => setDetailsOpened(!detailsOpened)}
+              className="flex items-center justify-center gap-1 font-light text-sm"
+            >
+              <span>Detail</span>
+              {!detailsOpened ? (
+                <FaChevronDown className="text-xs" />
+              ) : (
+                <FaChevronUp className="text-xs" />
+              )}
+            </button>
+          </div>
         </div>
 
-        <div className="">
+        <div className="flex flex-col gap-2">
           <button className="bg-primary px-[10px] py-[5px] text-white rounded-xl">
             Get Deal
           </button>
+          {coupon.verified ? (
+            <span className="text-white bg-[#937ef3] p-1 rounded-md text-xs text-center">
+              VERIFIED
+            </span>
+          ) : (
+            <span className="text-white bg-[#f0964d] p-1 rounded-md text-xs text-center">
+              UNVERIFIED
+            </span>
+          )}
         </div>
       </div>
 
       <div
         className={
-          "w-full transition-all duration-200 overflow-hidden px-4 text-sm font-light " + (detailsOpened ? "max-h-[100px] pb-2 " : "max-h-[0px] pb-0 ")
+          "w-full transition-all duration-200 overflow-hidden px-4 text-sm font-light " +
+          (detailsOpened ? "max-h-[100px] pb-2 " : "max-h-[0px] pb-0 ")
         }
       >
         <p>{coupon.terms_and_conditions}</p>
