@@ -1,48 +1,188 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { IEntity } from "@/types/IEntity";
+import { capitalize } from "@/utils/capitalize";
+import { ChangeEvent, useEffect, useState } from "react";
 
 interface FormField {
-  type: "text" | "number";
+  type?: "text" | "number";
   label: string;
-  required: boolean;
+  required?: boolean;
+  placeholder?: string;
+  options?: boolean;
+  values?: any[];
 }
 
-const AddForm = ({ fields }: { fields: FormField[] }) => {
+const AddForm = ({
+  fields,
+  entity,
+  editId,
+}: {
+  fields: FormField[];
+  entity: IEntity;
+  editId?: string;
+}) => {
   const [form, setForm] = useState(
     Object.fromEntries(
-      fields.map((field) => [field.label, field.type === "text" ? "" : 0])
+      fields.map((field) => [field.label, field.type === "number" ? 0 : ""])
     )
   );
 
+  const [options, setOptions] = useState<{
+    [key: string]: { _id: string; [key: string]: string | number }[];
+  }>({});
+
+  useEffect(() => {
+    if (editId && editId.length > 0) {
+      console.log("asd");
+
+      fetch("http://localhost:5000/api/" + entity + "/by-id/" + editId)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setForm(data[entity]);
+        });
+    }
+
+    // const promises = [];
+    for (let field of fields) {
+      if (field.options && !field.values) {
+        // promises.push(
+        //   fetch("http://localhost:5000/api/" + field.label + "/all")
+        // );
+        fetch("http://localhost:5000/api/" + field.label + "/all")
+          .then((res) => res.json())
+          .then((data) => {
+            setOptions((options: any) => ({
+              ...options,
+              [field.label]:
+                data[
+                  field.label === "brand"
+                    ? "brands"
+                    : field.label === "category"
+                    ? "categories"
+                    : "coupons"
+                ],
+            }));
+          })
+          .catch((err) => console.log(err));
+      } else if (field.options && field.values && field.values.length > 0) {
+        setOptions((options: any) => ({
+          ...options,
+          [field.label]: field.values,
+        }));
+        // console.log({
+        //   ...options,
+        //   [field.label]: field.values,
+        // });
+      }
+    }
+    // if(promises.length)
+    //     Promise.all(promises).then(res => )
+  }, []);
+
+  useEffect(() => {
+    console.log("yo", options);
+  }, [options]);
+
   return (
-    <div className="overflow-y-scroll overflow-x-hidden">
-      <div className="absolute top-0 left-0 w-screen min-h-screen">
-        <form className="bg-gray-300 z-[20] absolute top-[80px] left-1/2 -translate-x-1/2 flex flex-col gap-4 p-4 rounded-xl">
-          <h1 className="text-center font-bold text-xl mb-2">Add Entry Form</h1>
+    <form
+      className="bg-gray-200 p-8 flex flex-col gap-4 rounded-xl w-max mx-auto"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (editId && editId.length > 0) {
+          fetch("http://localhost:5000/api/" + entity + "/edit/" + editId, {
+            headers: { "Content-Type": "application/json" },
+            method: "PUT",
+            body: JSON.stringify(form),
+          }).then((res) => {
+            if (res.ok) {
+              alert("Added Successfully");
+              window.location.reload();
+            }
+          });
+        } else {
+          fetch("http://localhost:5000/api/" + entity + "/add", {
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            body: JSON.stringify(form),
+          }).then((res) => {
+            if (res.ok) {
+              alert("Added Successfully");
+              window.location.reload();
+            }
+          });
+        }
+      }}
+    >
+      <h1 className="text-center font-semibold text-xl mb-2 text-primary">
+        {editId && editId.length > 0 ? "Edit" : "Add"} {capitalize(entity)}
+      </h1>
 
-          <div className="grid grid-cols-2 gap-3 w-full">
-            {fields.map((field, i) => (
-              <div className="flex flex-col gap-2">
-                <label>{field.label.toUpperCase()}</label>
-                <input
-                  className="px-2 py-2 bg-white text-black rounded-full border-none "
-                  type={field.type}
-                  value={form[field.label]}
-                  required={field.required}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setForm({ ...form, [field.label]: e.target.value })
-                  }
-                />
-              </div>
-            ))}
+      <div className="grid grid-cols-2 gap-3 w-full gap-x-6">
+        {fields.map((field, i) => (
+          <div
+            className={
+              "flex flex-col gap-1 focus-within:text-primary transition-all duration-200 text-gray-700 " +
+              (fields.length === 1 ? "col-span-2" : "")
+            }
+            key={"field-" + field.label}
+          >
+            <label className="text-sm">{capitalize(field.label)}</label>
+            {!field.options ? (
+              <input
+                className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm "
+                type={field.type || "text"}
+                value={form[field.label]}
+                placeholder={field.placeholder ?? "e.g. Lorem ipsum"}
+                required={field.required ?? true}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setForm({ ...form, [field.label]: e.target.value })
+                }
+              />
+            ) : (
+              <select
+                className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm"
+                required={field.required ?? true}
+                onChange={(e) => {
+                  setForm({ ...form, [field.label]: e.target.value });
+                  console.log(e.target.value);
+                }}
+              >
+                {options[field.label] ? (
+                  options[field.label].map((option: any) => (
+                    <option
+                      value={option._id}
+                      key={"option-" + (option._id ?? option.value)}
+                    >
+                      {
+                        option[
+                          field.label === "brand"
+                            ? "name"
+                            : field.label === "category"
+                            ? "name"
+                            : field.label === "coupon"
+                            ? "title"
+                            : "value"
+                        ]
+                      }
+                    </option>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </select>
+            )}
           </div>
-
-          <button type="submit" className="mt-2 p-2 bg-primary rounded-full w-full text-white">Submit</button>
-        </form>
+        ))}
       </div>
 
-      <div className="top-0 left-0 w-screen min-h-screen bg-black/70 z-10 fixed"></div>
-    </div>
+      <button
+        type="submit"
+        className="mt-2 p-2 bg-primary rounded-lg w-full text-white"
+      >
+        Submit
+      </button>
+    </form>
   );
 };
 

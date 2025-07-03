@@ -68,7 +68,6 @@ a span {
 
 .custom-scrollbar::-webkit-scrollbar-track {
   background: #fafafa;
-
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -82,10 +81,8 @@ a span {
   border-radius: 50px 50px;
 }
 
-
 .custom-scrollbar *::-webkit-scrollbar-track {
   background: #fafafa;
-
 }
 
 .custom-scrollbar *::-webkit-scrollbar {
@@ -97,4 +94,18 @@ a span {
 .custom-scrollbar *::-webkit-scrollbar-thumb {
   background: #1ec27e;
   border-radius: 50px 50px;
+}
+
+.sidebar:hover {
+  padding: 16px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.sidebar:hover > div > a > span {
+  scale: 1 1;
+}
+
+.sidebar:hover > div > a {
+  background: #00000006;
 }

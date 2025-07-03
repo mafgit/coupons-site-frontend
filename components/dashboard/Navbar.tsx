@@ -10,41 +10,20 @@ const Navbar = () => {
           <h1 className="uppercase tracking-widest">Coupon Shop Dashboard</h1>
         </div>
 
-        <nav className="flex items-center justify-center gap-6 text-sm">
+        <nav className="flex items-center justify-center gap-4 text-sm">
           <Link
-            href="/dashboard"
+            href="/logout"
             className="flex gap-1 items-center justify-center h-full"
           >
-            <span>Home</span>
+            <span>Logout</span>
           </Link>
-
-          <Link
-            href="/dashboard/brands"
-            className="flex gap-1 items-center justify-center h-full"
-          >
-            <span>Brands</span>
-          </Link>
-
-          <Link
-            href="/dashboard/coupons"
-            className="flex gap-1 items-center justify-center h-full"
-          >
-            <span>Coupons</span>
-          </Link>
-
-          <Link
-            href="/dashboard/categories"
-            className="flex gap-1 items-center justify-center h-full"
-          >
-            <span>Categories</span>
-          </Link>
-
-          <Link
-            href="/"
-            className="flex gap-1 items-center justify-center h-full"
-          >
-            <span>Website</span>
-          </Link>
+          <Image
+            src="/globe.svg"
+            alt="profile-pic"
+            className="rounded-full"
+            width={20}
+            height={20}
+          />
         </nav>
       </div>
     </div>

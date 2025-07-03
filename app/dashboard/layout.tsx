@@ -2,6 +2,7 @@ import Navbar from "@/components/dashboard/Navbar";
 import { Poppins } from "next/font/google";
 import "../globals.css";
 import { Metadata } from "next";
+import Sidebar from "@/components/dashboard/Sidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,10 +22,9 @@ export default function DashboardLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${poppins.className} antialiased`}
-      >
+      <body className={`${poppins.className} antialiased ml-[40px]`}>
         <Navbar />
+        <Sidebar />
         <div className="mt-[59px] h-[1px] w-full"></div>
         {children}
       </body>
