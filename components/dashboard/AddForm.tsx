@@ -107,7 +107,11 @@ const AddForm = ({
             body: JSON.stringify(form),
           }).then((res) => {
             if (res.ok) {
-              alert("Added Successfully");
+              alert(
+                `${
+                  editId && editId.length > 0 ? "Edited" : "Added"
+                } Successfully`
+              );
               window.location.reload();
             }
           });

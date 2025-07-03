@@ -117,10 +117,16 @@ function Table<T extends { _id: string }>({
                     </Link>
                     <button
                       onClick={() => {
-                        fetch("").then((res) => {
+                        fetch(
+                          "http://localhost:5000/api/" +
+                            entity +
+                            "/delete/" +
+                            row._id,
+                          { method: "DELETE" }
+                        ).then((res) => {
                           if (res.ok) {
                             alert("Deleted Successfully");
-                            //
+                            window.location.reload();
                           }
                         });
                       }}
