@@ -8,7 +8,7 @@ const Search = () => {
   const [text, setText] = useState("");
 
   return (
-    <div className="flex items-center justify-center gap-6 flex-col py-[50px] px-[10px] bg-gray-200">
+    <div className="flex items-center justify-center gap-6 flex-col py-[50px] px-[10px] bg-gray-200 text-center">
       <h1 className="text-3xl font-bold text-primary">Tired of Searching?</h1>
       <p className="">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur,

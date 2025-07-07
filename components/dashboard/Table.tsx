@@ -122,7 +122,7 @@ function Table<T extends { _id: string }>({
                             entity +
                             "/delete/" +
                             row._id,
-                          { method: "DELETE" }
+                          { method: "DELETE", credentials: "include" }
                         ).then((res) => {
                           if (res.ok) {
                             alert("Deleted Successfully");
@@ -158,7 +158,7 @@ function Table<T extends { _id: string }>({
                       // />
                       <img
                         className="rounded-md max-h-[50px]"
-                        src={String(row[field])}
+                        src={String(row[field]) || '/default-profile-pic.jpg'}
                         alt=""
                       />
                     )}

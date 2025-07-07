@@ -31,8 +31,26 @@ const page = async ({ params }: { params: { entity: IEntity } }) => {
                 {
                   label: "verified",
                   options: true,
-                  values: [{ value: "true" }, { value: "false" }],
+                  values: [
+                    { value: "true", _id: "true" },
+                    { value: "false", _id: "false" },
+                  ],
                 },
+              ]
+            : entity === "user"
+            ? [
+                { label: "name" },
+                { label: "email", type: "email" },
+                {
+                  label: "role",
+                  options: true,
+                  values: [
+                    { value: "admin", _id: "admin" },
+                    { value: "user", _id: "user" },
+                  ],
+                },
+                { label: "password", type: "password" },
+                { label: "image", required: false },
               ]
             : []
         }

@@ -4,7 +4,7 @@ import { capitalize } from "@/utils/capitalize";
 import { ChangeEvent, useEffect, useState } from "react";
 
 interface FormField {
-  type?: "text" | "number";
+  type?: "text" | "number" | "password" | "email";
   label: string;
   required?: boolean;
   placeholder?: string;
@@ -33,12 +33,10 @@ const AddForm = ({
 
   useEffect(() => {
     if (editId && editId.length > 0) {
-      console.log("asd");
-
       fetch("http://localhost:5000/api/" + entity + "/by-id/" + editId)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          console.log("39", data);
           setForm(data[entity]);
         });
     }
@@ -93,25 +91,25 @@ const AddForm = ({
           fetch("http://localhost:5000/api/" + entity + "/edit/" + editId, {
             headers: { "Content-Type": "application/json" },
             method: "PUT",
+            credentials: "include",
             body: JSON.stringify(form),
-          }).then((res) => {
+          }).then(async (res) => {
+            const data = await res.json();
             if (res.ok) {
-              alert("Added Successfully");
+              alert("Edited Successfully");
               window.location.reload();
-            }
+              return data;
+            } else throw data;
           });
         } else {
           fetch("http://localhost:5000/api/" + entity + "/add", {
             headers: { "Content-Type": "application/json" },
             method: "POST",
+            credentials: "include",
             body: JSON.stringify(form),
           }).then((res) => {
             if (res.ok) {
-              alert(
-                `${
-                  editId && editId.length > 0 ? "Edited" : "Added"
-                } Successfully`
-              );
+              alert("Added Successfully");
               window.location.reload();
             }
           });
@@ -147,6 +145,7 @@ const AddForm = ({
               <select
                 className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm"
                 required={field.required ?? true}
+                value={form[field.label]}
                 onChange={(e) => {
                   setForm({ ...form, [field.label]: e.target.value });
                   console.log(e.target.value);

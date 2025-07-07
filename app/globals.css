@@ -109,3 +109,10 @@ a span {
 .sidebar:hover > div > a {
   background: #00000006;
 }
+
+.profile-pic:hover > div,
+.profile-pic > div:hover {
+  pointer-events: all;
+  opacity: 1;
+  scale: 1 1;
+}

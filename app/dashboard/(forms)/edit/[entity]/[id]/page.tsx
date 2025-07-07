@@ -7,6 +7,7 @@ const page = async ({
   params: { entity: IEntity; id: string };
 }) => {
   const { entity, id } = await params;
+console.log(entity, id);
 
   return (
     <div className="mt-8">
@@ -38,6 +39,16 @@ const page = async ({
                   options: true,
                   values: [{ value: "true" }, { value: "false" }],
                 },
+              ]
+            : entity === "user" ? [
+                { label: "name" },
+                { label: "email" },
+                {
+                  label: "role",
+                  options: true,
+                  values: [{ value: "user" }, { value: "admin" }],
+                },
+                { label: "password", type: "password" }
               ]
             : []
         }

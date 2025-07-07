@@ -1,4 +1,5 @@
 "use client";
+import useStore from "@/hooks/useStore";
 import { ICoupon } from "@/types/ICoupon";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -12,6 +13,7 @@ const Coupon = ({
   brand_image: string;
 }) => {
   const [detailsOpened, setDetailsOpened] = useState(false);
+  const openCouponPopup = useStore((state) => state.openCouponPopup);
 
   return (
     <div className="flex flex-col w-max min-w-[500px] bg-white border-1  border-black/20 rounded-xl shadow-md shadow-black/20 h-min overflow-hidden">
@@ -46,7 +48,12 @@ const Coupon = ({
         </div>
 
         <div className="flex flex-col gap-2">
-          <button className="bg-primary px-[10px] py-[5px] text-white rounded-xl">
+          <button
+            className="bg-primary px-[10px] py-[5px] text-white rounded-xl"
+            onClick={() => {
+              openCouponPopup(coupon);
+            }}
+          >
             Get Deal
           </button>
           {coupon.verified ? (

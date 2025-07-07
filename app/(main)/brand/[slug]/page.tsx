@@ -11,7 +11,7 @@ const BrandPage = async ({ params }: { params: { slug: string } }) => {
       `http://localhost:5000/api/brand/by-slug/${slug}`
     ).then((res) => res.json());
     return (
-      <div className="mb-[100px]">
+      <div className="mb-[100px] mt-[70px]">
         <div className="bg-white rounded-2xl w-[95%] mt-[10px] mx-auto">
           <div className="w-full p-4 py-8 gap-6 flex items-center justify-evenly max-w-[1100px] mx-auto bg-white rounded-xl">
             <Image

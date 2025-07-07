@@ -1,9 +1,13 @@
+"use client";
+import useStore from "@/hooks/useStore";
 import { ICoupon } from "@/types/ICoupon";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaBookmark } from "react-icons/fa6";
 
 const Card = ({ coupon }: { coupon: ICoupon }) => {
+  const openCouponPopup = useStore((state) => state.openCouponPopup);
+  const router = useRouter();
   return (
     <div className="card relative rounded-xl flex flex-col items-center justify-between shadow-lg shadow-black/20 bg-white w-[240px]  border-1 border-black/20 h-[320px]">
       <button className="bookmark opacity-0 pointer-events-none duration-300 transition-all absolute top-2 right-2 text-black/20 text-lg">
@@ -35,8 +39,13 @@ const Card = ({ coupon }: { coupon: ICoupon }) => {
           <p className="text-xs">12.1K Used</p>
         </div>
         {coupon.type === "code" ? (
-          <Link
-            href={`/brand/${coupon.brand.slug}`}
+          <button
+            onClick={() => {
+              openCouponPopup(coupon);
+              // window.open(`/brand/${coupon.brand.slug}`, "_blank");
+              router.push(`/brand/${coupon.brand.slug}`);
+              window.open(coupon.brand.website, "_blank");
+            }}
             className=" reveal-btn relative w-full rounded-xl text-white h-[40px] text-center"
           >
             <span className="bg-primary w-[90%] z-10 transition-all duration-200 h-full rounded-xl absolute top-0 left-0"></span>
@@ -46,14 +55,18 @@ const Card = ({ coupon }: { coupon: ICoupon }) => {
             <span className="absolute top-0 left-0 z-[5] text-black w-full h-full border-dashed border-2 border-primary rounded-xl flex items-center justify-center">
               {"xxxxxxxxxxxxxxxxxx" + coupon.code.slice(coupon.code.length - 4)}
             </span>
-          </Link>
+          </button>
         ) : (
-          <Link
+          <button
+            onClick={() => {
+              openCouponPopup(coupon);
+              router.push(`/brand/${coupon.brand.slug}`);
+              window.open(coupon.brand.website, "_blank");
+            }}
             className=" reveal-btn bg-primary relative w-full rounded-xl text-white h-[40px] text-center flex items-center justify-center"
-            href={`/brand/${coupon.brand.slug}`}
           >
             Get Deal
-          </Link>
+          </button>
         )}
       </div>
     </div>

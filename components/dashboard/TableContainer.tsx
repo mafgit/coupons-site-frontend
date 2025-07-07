@@ -12,7 +12,7 @@ const TableContainer = <T extends { _id: string }>({
   searchFields,
 }: {
   entity: IEntity;
-  searchFields: { label: keyof T; type: "text" | "number" }[];
+  searchFields: { label: keyof T; type: "text" | "number" | "email" }[];
 }) => {
   const [data, setData] = useState<T[]>([]);
   const [queries, setQueries] = useState(
@@ -40,6 +40,8 @@ const TableContainer = <T extends { _id: string }>({
               ? "brands"
               : entity === "category"
               ? "categories"
+              : entity === "user"
+              ? "users"
               : "coupons"
           ].map((x: T) => {
             if (entity === "brand") {
@@ -62,6 +64,8 @@ const TableContainer = <T extends { _id: string }>({
               ? "brands"
               : entity === "category"
               ? "categories"
+              : entity === "user"
+              ? "users"
               : "coupons"
           ].map((x: T) => {
             if (entity === "brand") {

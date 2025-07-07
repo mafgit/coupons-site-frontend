@@ -1,1 +1,1 @@
-export type IEntity = "brand" | "category" | "coupon"; 
+export type IEntity = "brand" | "category" | "coupon" | 'user'; 
