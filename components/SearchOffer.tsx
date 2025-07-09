@@ -1,10 +1,14 @@
+import useStore from "@/hooks/useStore";
 import { ICoupon } from "@/types/ICoupon";
 import { capitalize } from "@/utils/capitalize";
 import Link from "next/link";
 
 const SearchOffer = ({ offer }: { offer: ICoupon }) => {
+  const closeSearch = useStore((s) => s.closeSearch);
+  
   return (
     <Link
+    onClick={() => closeSearch()}
       href={"/brand/" + offer.brand.slug}
       className="w-full flex items-center justify-start gap-4 text-left"
     >

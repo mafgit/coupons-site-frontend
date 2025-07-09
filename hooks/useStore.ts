@@ -47,18 +47,20 @@ const useStore = create<IStoreState>((set, get) => {
     },
 
     logout: async () => {
-      return fetch("http://localhost:5000/api/auth/logout", {
+      return await fetch("http://localhost:5000/api/auth/logout", {
         method: "POST",
         credentials: "include",
-      }).finally(() => {
-        set({
-          userId: undefined,
-          role: undefined,
-          loading: false,
-          authenticated: false,
-          hasFetched: false,
+      })
+        .then((res) => res.json())
+        .finally(() => {
+          set({
+            userId: undefined,
+            role: undefined,
+            loading: false,
+            authenticated: false,
+            hasFetched: false,
+          });
         });
-      });
     },
 
     openCouponPopup: (coupon: ICoupon) => {

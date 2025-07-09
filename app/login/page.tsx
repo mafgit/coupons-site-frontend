@@ -245,7 +245,7 @@ const LoginPage = () => {
             </p>
           ) : (
             <p className="text-center text-sm">
-              Wanna sign up?{" "}
+              Don't have an account?{" "}
               <button
                 type="button"
                 onClick={() => setIsSignup(true)}

@@ -21,9 +21,12 @@ const ProfilePic = ({
       />
       <div className="rounded-lg absolute top-full right-[0] p-1 bg-gray-400 scale-y-0 origin-top transition-all duration-200 flex justify-between flex-col gap-1">
         <button
-          onClick={() => {
-            logout();
-            router.refresh()
+          onClick={async () => {
+            try {
+              await logout();
+            } finally {
+              router.refresh();
+            }
           }}
           className="p-2 bg-gray-300 rounded-sm"
         >
