@@ -1,6 +1,6 @@
 import CouponPopup from "@/components/CouponPopup";
 import Row from "@/components/Row";
-import Search from "@/components/Search";
+import BannerSearch from "@/components/BannerSearch";
 
 export default async function Home() {
   // const setCategories = useStore((state) => state.setCategories);
@@ -13,7 +13,7 @@ export default async function Home() {
   //       console.log(data);
   //     });
   // }, []);
-
+try {
   const { data } = await fetch("http://localhost:5000/api/home").then((res) => {
     console.log(res);
     return res.json();
@@ -21,7 +21,7 @@ export default async function Home() {
 
   return (
     <div className="mb-[100px]">
-      <Search />
+      <BannerSearch />
 
       <div className="flex flex-col gap-4 items-center py-[50px] justify-center ">
         <h1 className="text-2xl font-bold text-primary">Coupons</h1>
@@ -32,5 +32,8 @@ export default async function Home() {
       </div>
 
     </div>
-  );
+  );}
+  catch (err) {
+    return <>Error</>
+  }
 }

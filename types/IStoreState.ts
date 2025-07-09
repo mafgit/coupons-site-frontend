@@ -7,6 +7,7 @@ export interface IStoreState {
   role?: "admin" | "user";
   hasFetched: boolean;
   couponOpened: ICoupon | undefined;
+  searchOpened: boolean;
   // setUser: (userId: string, role: "admin" | "user") => void;
   fetchUser: () => Promise<void>;
   logout: () => any;
@@ -19,4 +20,6 @@ export interface IStoreState {
   }) => void;
   openCouponPopup: (coupon: ICoupon) => void;
   closeCouponPopup: () => void;
+  openSearch: () => void;
+  closeSearch: () => void;
 }

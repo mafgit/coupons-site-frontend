@@ -1,6 +1,8 @@
+import Search from "@/components/Search";
 import CouponPopup from "@/components/CouponPopup";
 import Navbar from "@/components/Navbar";
 import AuthWrapper from "@/utils/AuthWrapper";
+import '../globals.css'
 
 export default function MainLayout({
   children,
@@ -10,10 +12,11 @@ export default function MainLayout({
   return (
     // <Suspense fallback={<div>Loading...</div>}>
     <AuthWrapper>
-      <Navbar />
-      <div className="mt-[52px] w-full"></div>
-      {children}
+      <Search />
       <CouponPopup />
+      <Navbar />
+      <div className="pt-[52px] w-full"></div>
+      {children}
     </AuthWrapper>
     // </Suspense>
   );

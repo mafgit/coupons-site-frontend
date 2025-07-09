@@ -10,6 +10,7 @@ const useStore = create<IStoreState>((set, get) => {
     loading: true,
     hasFetched: false,
     couponOpened: undefined,
+    searchOpened: false,
 
     setUser: (obj) => {
       set(obj);
@@ -65,6 +66,13 @@ const useStore = create<IStoreState>((set, get) => {
     },
 
     closeCouponPopup: () => set({ couponOpened: undefined }),
+
+    openSearch: () => {
+      set({ searchOpened: true });
+    },
+    closeSearch: () => {
+      set({ searchOpened: false });
+    },
   };
 });
 

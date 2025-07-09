@@ -12,7 +12,8 @@ const Navbar = () => {
   const [text, setText] = useState("");
   // const categories = useStore((state) => state.categories);
   const [categories, setCategories] = useState<ICategory[]>([]);
-
+  const openSearch = useStore((s) => s.openSearch);
+  
   useEffect(() => {
     fetch("http://localhost:5000/api/category/all")
       .then((res) => res.json())
@@ -60,6 +61,7 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search"
+              onClick={() => openSearch()}
               className="p-2 rounded-full border-1 border-primary outline-0"
               value={text}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
