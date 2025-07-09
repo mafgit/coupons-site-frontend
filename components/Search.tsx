@@ -3,13 +3,12 @@ import { ICoupon } from "@/types/ICoupon";
 import { useEffect, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import SearchOffer from "./SearchOffer";
-import { IBrand } from "@/types/IBrand";
-import SearchBrand from "./SearchBrand";
+import SearchBrand, { IExtendedBrand } from "./SearchBrand";
 import useStore from "@/hooks/useStore";
 
 const Search = () => {
   const [text, setText] = useState("");
-  const [brands, setBrands] = useState<IBrand[]>([]);
+  const [brands, setBrands] = useState<IExtendedBrand[]>([]);
   const [offers, setOffers] = useState<ICoupon[]>([]);
   const timeout = useRef<null | NodeJS.Timeout>(null);
   const [loading, setLoading] = useState(false);
@@ -49,7 +48,7 @@ const Search = () => {
       }}
     >
       {/* <div className=" h-[120vh] min-h-[120vh] max-h-[120vh]  overflow-y-scroll"> */}
-      <div className="max-w-[1000px] flex flex-col gap-6 mx-auto">
+      <div className="max-w-[900px] w-[90%] flex flex-col gap-6 mx-auto">
         <div className="relative border-b-2 border-primary">
           <input
             onClick={() => {
