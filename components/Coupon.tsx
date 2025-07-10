@@ -31,7 +31,7 @@ const Coupon = ({
 
           <div className="flex gap-2 mt-2">
             <span className="bg-[#76a6e6] text-white px-2 py-1 rounded-md text-xs text-center">
-              2.5K Used
+              {coupon.view_count} Used
             </span>
             <button
               onClick={() => setDetailsOpened(!detailsOpened)}
@@ -49,9 +49,9 @@ const Coupon = ({
 
         <div className="flex flex-col gap-2">
           <button
-            className="bg-primary px-[10px] py-[5px] text-white rounded-xl"
-            onClick={() => {
-              openCouponPopup(coupon);
+            className="bg-primary px-[10px] py-[5px] text-white rounded-md text-sm"
+            onClick={async () => {
+              await openCouponPopup(coupon._id);
             }}
           >
             Get Deal

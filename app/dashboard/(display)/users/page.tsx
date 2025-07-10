@@ -9,7 +9,15 @@ const Users = () => {
         { label: "_id", type: "text" },
         { label: "name", type: "text" },
         { label: "email", type: "email" },
-        { label: "role", type: "text" },
+        {
+          label: "role",
+          type: "text",
+          options: true,
+          values: [
+            { _id: "user", value: "User" },
+            { _id: "admin", value: "Admin" },
+          ],
+        },
       ]}
     />
   );

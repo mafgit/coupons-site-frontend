@@ -42,8 +42,8 @@ const Navbar = () => {
             <FaChevronDown className="text-xs" />
           </button>
 
-          <div className="fixed top-[54px] w-full flex-col min-h-[40vh] left-0 categories-hover-div opacity-0 pointer-events-none flex gap-4 items-center justify-center p-4 bg-gradient-to-r from-black/60 to-black/70">
-            <h1 className="text-2xl font-semibold text-white">Categories</h1>
+          <div className="fixed top-[54px] w-full flex-wrap min-h-[15vh] left-0 categories-hover-div opacity-0 pointer-events-none flex gap-8 items-center justify-center p-4 bg-gradient-to-r from-black/60 to-black/70">
+            <h1 className="text-xl font-semibold text-white">Categories</h1>
             <div className="flex flex-wrap gap-4">
               {categories.map((category) => (
                 <Link

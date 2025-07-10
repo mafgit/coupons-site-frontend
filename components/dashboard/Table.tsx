@@ -42,7 +42,7 @@ function Table<T extends { _id: string }>({
   entity: IEntity;
   colors?: string[];
 }) {
-  fields = fields.filter((field) => field !== "__v");
+  fields = fields.filter((field) => field !== "__v" && field !== "_id");
 
   const [sortedBy, setSortedBy] = useState<null | string>(null);
   const [ascending, setAscending] = useState<null | boolean>(null);
@@ -158,7 +158,7 @@ function Table<T extends { _id: string }>({
                       // />
                       <img
                         className="rounded-md max-h-[50px]"
-                        src={String(row[field]) || '/default-profile-pic.jpg'}
+                        src={String(row[field]) || "/default-profile-pic.jpg"}
                         alt=""
                       />
                     )}

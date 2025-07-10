@@ -10,9 +10,25 @@ const Coupons = () => {
         { label: "title", type: "text" },
         { label: "price", type: "number" },
         { label: "code", type: "text" },
-        { label: "verified", type: "text" },
-        { label: "type", type: "text" },
-        { label: "brand", type: "text" }
+        {
+          label: "verified",
+          type: "text",
+          options: true,
+          values: [
+            { _id: "true", value: "True" },
+            { _id: "false", value: "False" },
+          ],
+        },
+        {
+          label: "type",
+          type: "text",
+          options: true,
+          values: [
+            { _id: "code", value: "Code" },
+            { _id: "deal", value: "Deal" },
+          ],
+        },
+        { label: "brand", type: "text", options: true },
       ]}
     />
   );

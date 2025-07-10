@@ -6,6 +6,7 @@ import Link from "next/link";
 const CouponPopup = () => {
   const couponOpened = useStore((s) => s.couponOpened);
   const closeCouponPopup = useStore((s) => s.closeCouponPopup);
+  console.log("10", couponOpened);
 
   if (!couponOpened) return null;
   return (
@@ -25,7 +26,7 @@ const CouponPopup = () => {
             ? couponOpened.code
             : "No code required"}
         </h3>
-        
+
         {couponOpened.type === "code" ? (
           <button
             className="bg-primary p-2 rounded-lg text-white"
@@ -38,10 +39,10 @@ const CouponPopup = () => {
           </button>
         ) : (
           <Link
-            href={couponOpened.brand.website}
+            href={couponOpened.brand?.website}
             className="bg-primary p-2 rounded-lg text-white"
           >
-            Continue to {couponOpened.brand.name}
+            Continue to {couponOpened.brand?.name}
           </Link>
         )}
       </div>

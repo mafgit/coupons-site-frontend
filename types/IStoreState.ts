@@ -18,7 +18,7 @@ export interface IStoreState {
     loading: boolean;
     hasFetched: boolean;
   }) => void;
-  openCouponPopup: (coupon: ICoupon) => void;
+  openCouponPopup: (id: string) => Promise<void>;
   closeCouponPopup: () => void;
   openSearch: () => void;
   closeSearch: () => void;

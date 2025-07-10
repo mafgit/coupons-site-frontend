@@ -151,10 +151,15 @@ const LoginPage = () => {
   // if (loading) return <div>Loading...</div>;
   return (
     <AuthWrapper requiredRole="unauthorized">
-      "
-      <div className="flex flex-col items-center justify-center">
+      <div className="relative flex flex-col items-center justify-center min-h-screen w-screen bg-no-repeat object-cover">
+        <div
+          className="w-full h-full absolute z-[5] top-0 left-0 brightness-50 bg-cover bg-center backdrop-blur-3xl"
+          style={{
+            backgroundImage: "url('/a.jpg')",
+          }}
+        ></div>
         <form
-          className="flex flex-col my-8 gap-4 max-w-[300px] w-[95%] bg-gray-200 p-8 rounded-xl mx-auto"
+          className=" backdrop-blur-xs flex flex-col z-[10] my-8 gap-4 max-w-[300px] w-[95%] bg-gray-200/70 p-8 rounded-xl mx-auto"
           onSubmit={handleSubmit}
         >
           <h1 className="text-xl text-center">

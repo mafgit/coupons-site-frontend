@@ -2,6 +2,7 @@
 import useStore from "@/hooks/useStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FaSignOutAlt } from "react-icons/fa";
 const ProfilePic = ({
   image,
   authenticated,
@@ -19,18 +20,20 @@ const ProfilePic = ({
         alt="profile-pic"
         className="rounded-full w-[30px] h-[30px]"
       />
-      <div className="rounded-lg absolute top-full right-[0] p-1 bg-gray-400 scale-y-0 origin-top transition-all duration-200 flex justify-between flex-col gap-1">
+      <div className="rounded-lg absolute top-full right-[0] p-1 bg-transparent transform translate-y-[-50%] opacity-0 pointer-events-none origin-top transition-all duration-200 flex justify-between flex-col gap-1">
         <button
           onClick={async () => {
             try {
               await logout();
             } finally {
-              router.refresh();
+              // router.refresh();
+              window.location.reload()
             }
           }}
-          className="p-2 bg-gray-300 rounded-sm"
+          className="p-2 bg-red-400 text-white rounded-sm flex items-center justify-center gap-2"
         >
-          Logout
+          <FaSignOutAlt />
+          <span>Logout</span>
         </button>
       </div>
     </div>

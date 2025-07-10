@@ -63,8 +63,20 @@ const useStore = create<IStoreState>((set, get) => {
         });
     },
 
-    openCouponPopup: (coupon: ICoupon) => {
-      set({ couponOpened: coupon });
+    openCouponPopup: async (id: string) => {
+      console.log("opening");
+
+      try {
+        const { coupon } = await fetch(
+          "http://localhost:5000/api/coupon/view-by-id/" + id,
+          { method: "POST" }
+        ).then((res) => res.json());
+        console.log("73", coupon);
+
+        set({ couponOpened: coupon });
+      } catch (err) {
+        console.log(err);
+      }
     },
 
     closeCouponPopup: () => set({ couponOpened: undefined }),

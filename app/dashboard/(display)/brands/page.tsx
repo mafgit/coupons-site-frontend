@@ -8,7 +8,7 @@ const Brands = () => {
       searchFields={[
         { label: "name", type: "text" },
         { label: "_id", type: "text" },
-        { label: "category", type: "text" },
+        { label: "category", type: "text", options: true },
         { label: "slug", type: "text" },
       ]}
     />

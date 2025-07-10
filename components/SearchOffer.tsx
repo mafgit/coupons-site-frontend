@@ -1,14 +1,23 @@
+"use client";
 import useStore from "@/hooks/useStore";
 import { ICoupon } from "@/types/ICoupon";
 import { capitalize } from "@/utils/capitalize";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SearchOffer = ({ offer }: { offer: ICoupon }) => {
   const closeSearch = useStore((s) => s.closeSearch);
-  
+  const openCouponPopup = useStore((s) => s.openCouponPopup);
+  const router = useRouter();
+
   return (
     <Link
-    onClick={() => closeSearch()}
+      onClick={async () => {
+        closeSearch();
+        await openCouponPopup(offer._id);
+        router.push(`/brand/${offer.brand.slug}`);
+        window.open(offer.brand.website, "_blank");
+      }}
       href={"/brand/" + offer.brand.slug}
       className="w-full flex items-center justify-start gap-4 text-left"
     >

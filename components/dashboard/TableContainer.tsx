@@ -5,19 +5,64 @@ import { capitalize } from "@/utils/capitalize";
 import Link from "next/link";
 import { ChangeEvent, useEffect, useState } from "react";
 import Table from "./Table";
-import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const TableContainer = <T extends { _id: string }>({
   entity,
   searchFields,
 }: {
   entity: IEntity;
-  searchFields: { label: keyof T; type: "text" | "number" | "email" }[];
+  searchFields: {
+    label: keyof T;
+    type: "text" | "number" | "email";
+    options?: boolean;
+    values?: any;
+    required?: boolean;
+    placeholder?: string;
+  }[];
 }) => {
   const [data, setData] = useState<T[]>([]);
   const [queries, setQueries] = useState(
     Object.fromEntries(searchFields.map((field) => [field.label as string, ""]))
   );
+  const [options, setOptions] = useState<{
+    [key: string]: { _id: string; [key: string]: string | number }[];
+  }>({});
+
+  useEffect(() => {
+    // const promises = [];
+    for (let field of searchFields) {
+      if (field.options && !field.values) {
+        // promises.push(
+        //   fetch("http://localhost:5000/api/" + field.label + "/all")
+        // );
+        fetch("http://localhost:5000/api/" + (field.label as string) + "/all")
+          .then((res) => res.json())
+          .then((data) => {
+            setOptions((options: any) => ({
+              ...options,
+              [field.label]:
+                data[
+                  field.label === "brand"
+                    ? "brands"
+                    : field.label === "category"
+                    ? "categories"
+                    : "coupons"
+                ],
+            }));
+          })
+          .catch((err) => console.log(err));
+      } else if (field.options && field.values && field.values.length > 0) {
+        setOptions((options: any) => ({
+          ...options,
+          [field.label]: field.values,
+        }));
+        // console.log({
+        //   ...options,
+        //   [field.label]: field.values,
+        // });
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const queryString = Object.entries(queries).reduce((a, b) => {
@@ -101,29 +146,93 @@ const TableContainer = <T extends { _id: string }>({
         </Link>
       </div>
 
-      <div className="flex items-center justify-center w-full mx-auto mb-2 text-xs gap-4 flex-wrap mt-8">
-        {searchFields.map((searchField) => (
-          <div
-            className="flex items-center justify-center gap-2"
-            key={"search-field-" + (searchField.label as string)}
-          >
-            <label className=" text-gray-600">
-              {capitalize(searchField.label as string)}
-            </label>
-            <input
-              type={searchField.type}
-              placeholder="Lorem ipsum"
-              className="p-2 rounded-full border-2 border-primary bg-white outline-0 w-full"
-              value={queries[searchField.label as string]}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setQueries({
-                  ...queries,
-                  [searchField.label as string]: e.target.value,
-                })
-              }
-            />
-          </div>
-        ))}
+      <div className="flex items-center justify-center w-full mx-auto mb-2 text-xs gap-6 flex-wrap mt-8">
+        {searchFields.map(
+          (field) =>
+            !field.options ? (
+              <div
+                className="flex gap-2 items-center justify-center"
+                key={"search-field-" + (field.label as string)}
+              >
+                <label className=" text-gray-600">
+                  {capitalize(field.label as string)}
+                </label>
+                <input
+                  className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm "
+                  type={field.type || "text"}
+                  value={queries[field.label as string]}
+                  placeholder={field.placeholder ?? "e.g. Lorem ipsum"}
+                  required={field.required ?? true}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setQueries({ ...queries, [field.label]: e.target.value })
+                  }
+                />
+              </div>
+            ) : (
+              <div
+                className="flex gap-2 items-center justify-center"
+                key={"search-field-" + (field.label as string)}
+              >
+                {" "}
+                <label className=" text-gray-600">
+                  {capitalize(field.label as string)}
+                </label>
+                <select
+                  className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm"
+                  required={field.required ?? true}
+                  value={queries[field.label as string]}
+                  onChange={(e) => {
+                    setQueries({ ...queries, [field.label]: e.target.value });
+                    console.log(e.target.value);
+                  }}
+                >
+                  {options[field.label as string] ? (
+                    options[field.label as string].map((option: any) => (
+                      <option
+                        value={option._id}
+                        key={"option-" + (option._id ?? option.value)}
+                      >
+                        {
+                          option[
+                            field.label === "brand"
+                              ? "name"
+                              : field.label === "category"
+                              ? "name"
+                              : field.label === "coupon"
+                              ? "title"
+                              : "value"
+                          ]
+                        }
+                      </option>
+                    ))
+                  ) : (
+                    <></>
+                  )}
+                </select>
+              </div>
+            )
+
+          // <div
+          //   className="flex items-center justify-center gap-2"
+          //   key={"search-field-" + (searchField.label as string)}
+          // >
+          //   <label className=" text-gray-600">
+          //     {capitalize(searchField.label as string)}
+          //   </label>
+          //   <input
+          //     type={searchField.type}
+          //     placeholder="Lorem ipsum"
+          //     className="p-2 rounded-full border-2 border-primary bg-white outline-0 w-full"
+          //     value={queries[searchField.label as string]}
+          //     onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          //       setQueries({
+          //         ...queries,
+          //         [searchField.label as string]: e.target.value,
+          //       })
+          //     }
+          //   />
+          // </div>
+        )}
 
         {/* <Link href={"/search?q=" + query} className="absolute right-[7px]">
           <FaMagnifyingGlass className="bg-primary w-full h-full p-2 rounded-full text-white" />

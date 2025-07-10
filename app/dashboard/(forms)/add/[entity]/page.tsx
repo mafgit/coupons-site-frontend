@@ -25,7 +25,6 @@ const page = async ({ params }: { params: { entity: IEntity } }) => {
                 { label: "title" },
                 { label: "code" },
                 { label: "terms_and_conditions" },
-                { label: "website" },
                 { label: "brand", options: true },
                 { label: "price", type: "number" },
                 {

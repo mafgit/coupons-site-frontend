@@ -118,7 +118,9 @@ a span {
 .profile-pic > div:hover {
   pointer-events: all;
   opacity: 1;
-  scale: 1 1;
+  padding-top: 20px;
+  transform: translateY(30%);
+  /* scale: 1 1; */
 }
 
 .search-component {
