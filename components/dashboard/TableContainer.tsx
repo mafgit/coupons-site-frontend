@@ -3,14 +3,17 @@
 import { IEntity } from "@/types/IEntity";
 import { capitalize } from "@/utils/capitalize";
 import Link from "next/link";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Table from "./Table";
+import { FaBan } from "react-icons/fa6";
 
-const TableContainer = <T extends { _id: string }>({
+const TableContainer = <T extends { _id: string, order?: number }>({
   entity,
   searchFields,
+  allowDrag=false,
 }: {
   entity: IEntity;
+  allowDrag?: boolean;
   searchFields: {
     label: keyof T;
     type: "text" | "number" | "email";
@@ -27,6 +30,8 @@ const TableContainer = <T extends { _id: string }>({
   const [options, setOptions] = useState<{
     [key: string]: { _id: string; [key: string]: string | number }[];
   }>({});
+  const [loading, setLoading] = useState(true);
+  const timeoutRef = useRef<null | NodeJS.Timeout>(null);
 
   useEffect(() => {
     // const promises = [];
@@ -76,60 +81,67 @@ const TableContainer = <T extends { _id: string }>({
     const fetchUrl = `http://localhost:5000/api/${entity}/all?${queryString}`;
     console.log(fetchUrl);
 
-    fetch(fetchUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(
-          data[
-            entity === "brand"
-              ? "brands"
-              : entity === "category"
-              ? "categories"
-              : entity === "user"
-              ? "users"
-              : "coupons"
-          ].map((x: T) => {
-            if (entity === "brand") {
-              return {
-                ...x,
-                category: (x as any).category.name,
-              };
-            } else if (entity === "coupon") {
-              return {
-                ...x,
-                brand: (x as any).brand.name,
-              };
-            } else return x;
-          })
-        );
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = null;
 
-        setData(
-          data[
-            entity === "brand"
-              ? "brands"
-              : entity === "category"
-              ? "categories"
-              : entity === "user"
-              ? "users"
-              : "coupons"
-          ].map((x: T) => {
-            if (entity === "brand") {
-              return {
-                ...x,
-                category: (x as any).category.name,
-              };
-            } else if (entity === "coupon") {
-              return {
-                ...x,
-                brand: (x as any).brand.name,
-              };
-            } else return x;
-          })
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    timeoutRef.current = setTimeout(() => {
+      setLoading(true);
+      fetch(fetchUrl)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(
+            data[
+              entity === "brand"
+                ? "brands"
+                : entity === "category"
+                ? "categories"
+                : entity === "user"
+                ? "users"
+                : "coupons"
+            ].map((x: T) => {
+              if (entity === "brand") {
+                return {
+                  ...x,
+                  category: (x as any).category.name,
+                };
+              } else if (entity === "coupon") {
+                return {
+                  ...x,
+                  brand: (x as any).brand.name,
+                };
+              } else return x;
+            })
+          );
+
+          setData(
+            data[
+              entity === "brand"
+                ? "brands"
+                : entity === "category"
+                ? "categories"
+                : entity === "user"
+                ? "users"
+                : "coupons"
+            ].map((x: T) => {
+              if (entity === "brand") {
+                return {
+                  ...x,
+                  category: (x as any).category.name,
+                };
+              } else if (entity === "coupon") {
+                return {
+                  ...x,
+                  brand: (x as any).brand.name,
+                };
+              } else return x;
+            })
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => setLoading(false));
+    }, 1000);
   }, [queries]);
 
   return (
@@ -186,6 +198,7 @@ const TableContainer = <T extends { _id: string }>({
                     console.log(e.target.value);
                   }}
                 >
+                  <option value="">All</option>
                   {options[field.label as string] ? (
                     options[field.label as string].map((option: any) => (
                       <option
@@ -239,15 +252,22 @@ const TableContainer = <T extends { _id: string }>({
         </Link> */}
       </div>
 
-      {data.length ? (
+      {loading ? (
+        <div className="w-full h-full mt-[70px] flex items-center justify-center">
+          <div className="animate-spin border-l-2 border-r-2 border-primary w-8 h-8 rounded-full"></div>
+        </div>
+      ) : data.length ? (
         <Table<T>
           data={data}
           setData={setData}
           fields={Object.keys(data[0]) as (keyof T)[]}
           entity={entity}
+          allowDrag={allowDrag}
         />
       ) : (
-        <></>
+        <h3 className="text-center flex items-center justify-center gap-2 flex-col text-gray-700 mt-[70px]">
+          <FaBan className="text-3xl text-red-500" /> <span>No Data Found</span>
+        </h3>
       )}
     </div>
   );

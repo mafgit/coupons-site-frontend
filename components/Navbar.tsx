@@ -25,7 +25,7 @@ const Navbar = () => {
   const authenticated = useStore((state) => state.authenticated);
   return (
     <div className="flex flex-col fixed left-0 top-0 z-40 w-full">
-      <div className="flex px-8 items-center justify-between w-full bg-background border-b-1 border-primary">
+      <div className="flex px-8 items-center justify-between w-full bg-background border-b-1 border-primary/40">
         <Image src="/next.svg" alt="logo" width={100} height={100} />
 
         <nav className="flex items-center justify-center gap-6 text-sm">

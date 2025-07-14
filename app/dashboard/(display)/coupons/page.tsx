@@ -30,6 +30,7 @@ const Coupons = () => {
         },
         { label: "brand", type: "text", options: true },
       ]}
+      allowDrag={true}
     />
   );
 };

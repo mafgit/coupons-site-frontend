@@ -84,21 +84,21 @@ a span {
   background: #1ec27e;
   border-radius: 50px 50px;
 }
-
+/* 
 .custom-scrollbar *::-webkit-scrollbar-track {
-  background: #fafafa;
+  background: var(--background);
 }
 
 .custom-scrollbar *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
-  background: #fafafa;
+  background: var(--background);
 }
 
 .custom-scrollbar *::-webkit-scrollbar-thumb {
   background: #1ec27e;
   border-radius: 50px 50px;
-}
+} */
 
 .sidebar:hover {
   padding: 16px;
@@ -130,7 +130,8 @@ a span {
   width: 0 !important;
   display: none !important;
   height: 0;
-  margin: 0;background: none;
+  margin: 0;
+  background: none;
   padding: 0;
 }
 
@@ -139,5 +140,17 @@ a span {
   display: none;
   height: 0;
   margin: 0;
-  padding: 0;background: none;
+  padding: 0;
+  background: none;
+}
+
+.show-tip:hover ~ .tip, .tip:hover {
+  opacity: 1;
+  pointer-events: all;
+  scale: 1;
+}
+
+.td-main:hover .show-tip-div {
+  pointer-events: all;
+  opacity: 1;
 }

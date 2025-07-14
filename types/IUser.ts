@@ -4,4 +4,5 @@ export interface IUser {
   email: string;
   role: "admin" | "user";
   image: string
+  order: number;
 }

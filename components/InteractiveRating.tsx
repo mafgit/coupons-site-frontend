@@ -28,7 +28,7 @@ const InteractiveRating = ({
   }, [yourRating]);
 
   return (
-    <div className="bg-gray-500 flex items-center justify-center gap-2 w-max p-2 rounded-full">
+    <div className="bg-[#76a6e6] flex items-center justify-center gap-2 w-max p-3 py-3 rounded-md">
       {new Array(Math.floor(5)).fill(0).map((_, i) =>
         i + 1 <= yourRating ? (
           <FaStar

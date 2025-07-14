@@ -46,13 +46,13 @@ const BrandPage = async ({ params }: { params: { slug: string } }) => {
         <div className="flex gap-2 justify-stretch items-stretch max-w-[1100px]  mt-[30px]  mx-auto">
           <div className="flex flex-col gap-2 w-[70%] h-full">
             <h2 className="text-2xl font-semibold mb-2">Coupons</h2>
-            {brand.coupons.map((coupon: ICoupon) => (
+            {brand.coupons.length ? brand.coupons.map((coupon: ICoupon) => (
               <Coupon
                 coupon={coupon}
                 key={coupon._id}
                 brand_image={brand.image}
               />
-            ))}
+            )) : <p className="text-gray-700">No Coupons Yet</p>}
           </div>
 
           <div className="flex flex-col gap-4 h-full w-full items-end">
@@ -60,7 +60,7 @@ const BrandPage = async ({ params }: { params: { slug: string } }) => {
               More About {brand.name}
             </h2>
 
-            <div className="flex flex-col gap-1 items-center justify-center bg-gray-500 text-white p-2 rounded-md">
+            <div className="flex flex-col gap-1 items-center justify-center bg-gray-200  p-2 rounded-md">
               <h3 className="text-md text-center w-full">Ratings By Users</h3>
               <Rating
                 number={brand.rating ?? 0}
@@ -68,7 +68,7 @@ const BrandPage = async ({ params }: { params: { slug: string } }) => {
               />
             </div>
 
-            <div className="flex flex-col gap-1 items-center justify-center bg-gray-500 text-white p-2 rounded-md">
+            <div className="flex flex-col gap-1 items-center justify-center bg-gray-200 p-2 rounded-md">
               <h3 className="text-md text-center w-full">Your Rating</h3>
               <InteractiveRating
                 number={your_rating ?? 0}

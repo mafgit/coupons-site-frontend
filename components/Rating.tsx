@@ -8,7 +8,7 @@ const Rating = ({ number, rating_count }: { number: number, rating_count: number
     halfStar = true;
   }
   return (
-    <div className="bg-gray-400 flex items-center justify-center gap-2 w-max p-2 rounded-md">
+    <div className="bg-[#76a6e6]/60 flex items-center justify-center gap-2 w-max p-2 rounded-md">
       {new Array(Math.floor(fixedNumber)).fill(0).map((_, i) => (
         <FaStar className="text-yellow-400" key={"star-" + i} />
       ))}
