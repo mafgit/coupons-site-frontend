@@ -5,7 +5,7 @@ const page = async ({ params }: { params: { entity: IEntity } }) => {
   const { entity } = await params;
 
   return (
-    <div className="my-10">
+    <div className="mt-[20px] min-h-[calc(100vh-140px)] flex items-center justify-center">
       <AddForm
         entity={entity}
         fields={

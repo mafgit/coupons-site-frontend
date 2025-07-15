@@ -153,17 +153,17 @@ const LoginPage = () => {
     <AuthWrapper requiredRole="unauthorized">
       <div className="relative flex flex-col items-center justify-center min-h-screen w-screen bg-no-repeat object-cover">
         <div
-          className="w-full h-full absolute z-[5] top-0 left-0 brightness-50 bg-cover bg-center backdrop-blur-3xl"
+          className="w-full h-full absolute z-[5] top-0 left-0 brightness-30 bg-cover bg-center backdrop-blur-3xl"
           style={{
             backgroundImage: "url('/a.jpg')",
           }}
         ></div>
         <form
-          className=" backdrop-blur-xs flex flex-col z-[10] my-8 gap-4 max-w-[300px] w-[95%] bg-gray-200/70 p-8 rounded-xl mx-auto"
+          className="text-gray-700 backdrop-blur-xs flex flex-col z-[10] my-8 gap-4 max-w-[300px] w-[95%] bg-[#eeeeee]/97 p-8 rounded-xl mx-auto"
           onSubmit={handleSubmit}
         >
           <h1 className="text-xl text-center">
-            {isSignup ? "Signup" : "Login"}
+            {isSignup ? "Signup on" : "Login on"} <span className="text-primary uppercase font-semibold">Coupon</span>
           </h1>
 
           {isSignup && (

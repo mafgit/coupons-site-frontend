@@ -124,7 +124,7 @@ const AddForm = ({
         {fields.map((field, i) => (
           <div
             className={
-              "flex flex-col gap-1 focus-within:text-primary transition-all duration-200 text-gray-700 " +
+              "flex flex-col gap-1 focus-within:text-primary transition-all duration-200 " +
               (fields.length === 1 ? "col-span-2" : "")
             }
             key={"field-" + field.label}
@@ -135,7 +135,7 @@ const AddForm = ({
             {!field.options ? (
               <input
                 id={field.label}
-                className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm "
+                className="px-2 py-2 bg-gray-50 rounded-lg border-none outline-primary text-sm "
                 type={field.type || "text"}
                 value={form[field.label]}
                 placeholder={field.placeholder ?? "e.g. Lorem ipsum"}
@@ -146,7 +146,7 @@ const AddForm = ({
               />
             ) : (
               <select
-                className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm"
+                className="px-2 py-2 bg-gray-50 rounded-lg border-none outline-primary text-sm"
                 required={field.required ?? true}
                 value={form[field.label]}
                 onChange={(e) => {

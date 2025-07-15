@@ -7,10 +7,10 @@ const page = async ({
   params: { entity: IEntity; id: string };
 }) => {
   const { entity, id } = await params;
-console.log(entity, id);
+  console.log(entity, id);
 
   return (
-    <div className="mt-8">
+    <div className="mt-[20px] min-h-[calc(100vh-140px)] flex items-center justify-center">
       <AddForm
         entity={entity}
         editId={id}
@@ -39,7 +39,8 @@ console.log(entity, id);
                   values: [{ value: "true" }, { value: "false" }],
                 },
               ]
-            : entity === "user" ? [
+            : entity === "user"
+            ? [
                 { label: "name" },
                 { label: "email" },
                 {
@@ -47,7 +48,7 @@ console.log(entity, id);
                   options: true,
                   values: [{ value: "user" }, { value: "admin" }],
                 },
-                { label: "password", type: "password" }
+                { label: "password", type: "password" },
               ]
             : []
         }
