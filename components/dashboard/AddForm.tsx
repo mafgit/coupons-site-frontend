@@ -84,7 +84,7 @@ const AddForm = ({
 
   return (
     <form
-      className="bg-gray-200 p-8 flex flex-col gap-4 rounded-xl w-max mx-auto"
+      className="bg-[#eeeeee] px-4 py-8 sm:p-8 flex flex-col gap-4 rounded-xl w-[95%] sm:w-max mx-auto"
       onSubmit={(e) => {
         e.preventDefault();
         if (editId && editId.length > 0) {
@@ -120,7 +120,7 @@ const AddForm = ({
         {editId && editId.length > 0 ? "Edit" : "Add"} {capitalize(entity)}
       </h1>
 
-      <div className="grid grid-cols-2 gap-3 w-full gap-x-6">
+      <div className="grid sm:grid-cols-2 gap-3 w-full gap-x-6">
         {fields.map((field, i) => (
           <div
             className={

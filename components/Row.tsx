@@ -11,7 +11,7 @@ const Row = ({ category, cards }: { category: string; cards: ICoupon[] }) => {
         className="text-xl flex items-center justify-center font-semibold"
       >
         <span>{category}</span>
-        <FaChevronRight />
+        <FaChevronRight  className="text-sm"/>
       </Link>
       <div className="flex gap-4 w-full flex-wrap items-center justify-center">
         {cards.map((card) => (

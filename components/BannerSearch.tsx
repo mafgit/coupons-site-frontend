@@ -1,35 +1,30 @@
 "use client";
 
 import useStore from "@/hooks/useStore";
-import Link from "next/link";
-import { ChangeEvent, useState } from "react";
 import { FaMagnifyingGlass, FaTicket } from "react-icons/fa6";
 
 const Search = () => {
-  const [text, setText] = useState("");
-  const openSearch = useStore(s => s.openSearch)
+  const openSearch = useStore((s) => s.openSearch);
 
   return (
     <div className="flex items-center justify-center gap-6 flex-col py-[50px] px-[10px] bg-[#ebeced] text-center bg-gradient-to-br from-[#ebeced] to-gray-100 border-b-1 border-black/5">
-      <h1 className="text-4xl font-bold text-gray-700">Tired of Searching?</h1>
-      <p className="text-gray-700">
+      <h1 className="text-4xl font-bold text-gray-700  max-w-[80%]">Tired of Searching?</h1>
+      <p className="text-gray-700 max-w-[80%]">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur,
         ipsa?
       </p>
-      <div className="flex items-center justify-center relative w-[400px]">
+      <div
+        className="flex items-center justify-center relative w-[400px]  max-w-[90%]"
+        onClick={() => openSearch()}
+      >
         <input
           type="text"
           placeholder="Search"
-          onClick={() => openSearch()}
           className="p-2 rounded-full border-2 border-primary outline-0 w-full bg-gray-100 bg-gradient-to-br from-gray-50 to-gray-200"
-          value={text}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setText(e.target.value)
-          }
         />
-        <Link href={"/search?q=" + text} className="absolute right-[7px]">
+        <div className="absolute right-[7px]">
           <FaMagnifyingGlass className="bg-primary w-full h-full p-2 rounded-full text-white" />
-        </Link>
+        </div>
       </div>
 
       <div className="flex items-center justify-center gap-4">

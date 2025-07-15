@@ -21,9 +21,9 @@ console.log(role)
       <img
         src={image || "/default-profile-pic.jpg"}
         alt="profile-pic"
-        className="rounded-full w-[30px] h-[30px]"
+        className="rounded-full w-[30px] h-[30px] min-w-[30px]"
       />
-      <div className="rounded-lg absolute top-full right-[0] p-1 bg-transparent transform translate-y-[-50%] opacity-0 pointer-events-none origin-top transition-all duration-200 flex justify-between flex-col gap-1">
+      <div className="rounded-lg absolute top-full right-[0] p-1 bg-transparent transform translate-y-[-20%] opacity-0 pointer-events-none origin-top transition-all duration-200 flex justify-between flex-col gap-1">
         <button
           onClick={async () => {
             try {

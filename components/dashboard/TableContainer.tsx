@@ -148,7 +148,7 @@ const TableContainer = <T extends { _id: string; order?: number }>({
   return (
     <div className="max-w-[95%] mx-auto my-4">
       <div className=" mt-8 mb-4 flex items-center justify-center gap-4">
-        <h1 className="text-3xl text-center font-semibold">
+        <h1 className="text-2xl sm:text-3xl text-center font-semibold">
           {capitalize(entity)} Dashboard
         </h1>
         <Link
@@ -165,18 +165,18 @@ const TableContainer = <T extends { _id: string; order?: number }>({
           (field) =>
             !field.options ? (
               <div
-                className="flex gap-2 items-center justify-center"
+                className="flex gap-2 items-center justify-between w-[92%] sm:w-auto"
                 key={"search-field-" + (field.label as string)}
               >
                 <label
                   htmlFor={field.label as string}
-                  className=" text-gray-600"
+                  className=" text-gray-600 text-sm"
                 >
                   {capitalize(field.label as string)}
                 </label>
                 <input
                   id={field.label as string}
-                  className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm "
+                  className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm w-[200px]"
                   type={field.type || "text"}
                   value={queries[field.label as string]}
                   placeholder={field.placeholder ?? "e.g. Lorem ipsum"}
@@ -188,19 +188,19 @@ const TableContainer = <T extends { _id: string; order?: number }>({
               </div>
             ) : (
               <div
-                className="flex gap-2 items-center justify-center"
+                className="flex gap-2 items-center justify-between w-[92%] sm:w-auto"
                 key={"search-field-" + (field.label as string)}
               >
                 {" "}
                 <label
                   htmlFor={field.label as string}
-                  className=" text-gray-600"
+                  className=" text-gray-600 text-sm"
                 >
                   {capitalize(field.label as string)}
                 </label>
                 <select
                   id={field.label as string}
-                  className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm"
+                  className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm w-[200px]"
                   required={field.required ?? true}
                   value={queries[field.label as string]}
                   onChange={(e) => {

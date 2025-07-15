@@ -13,7 +13,7 @@ const BrandPage = async ({ params }: { params: { slug: string } }) => {
     return (
       <div className="mb-[100px] mt-[20px]">
         <div className="bg-white rounded-2xl w-[95%] mt-[10px] mx-auto">
-          <div className="w-full p-4 py-8 gap-6 flex items-center justify-evenly max-w-[1100px] mx-auto bg-white rounded-xl">
+          <div className="w-full p-4 py-8 gap-6 flex flex-col md:flex-row items-center justify-evenly max-w-[1100px] mx-auto bg-white rounded-xl">
             <Image
               src={brand.image}
               width={1000}
@@ -21,16 +21,16 @@ const BrandPage = async ({ params }: { params: { slug: string } }) => {
               alt="logo"
               className="w-[150px] h-[150px] rounded-full border-1 border-black/20 object-cover"
             />
-            <div className="grow-[4] flex flex-col gap-2">
+            <div className="grow-[4] flex flex-col gap-2 items-center md:items-start">
               <h1 className="text-3xl font-bold">{brand.name}</h1>
-              <p className="text-sm font-light">{brand.description}</p>
+              <p className="text-sm font-light text-center md:text-left">{brand.description}</p>
             </div>
-            <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-white bg-[#76a6e6] p-2 w-full flex items-center justify-center gap-1 rounded-md text-sm">
+            <div className="flex flex-row md:flex-col items-center justify-center gap-4">
+              <p className="text-white bg-[#76a6e6] p-2 w-[100px] h-[40px] flex items-center justify-center gap-1 rounded-md text-sm ">
                 <FaUsers /> <span>{brand.view_count}</span>
               </p>
               <Link
-                className="text-white bg-[#76a6e6] rounded-md p-2 w-max flex items-center justify-center gap-1 text-sm"
+                className="text-white bg-[#76a6e6] rounded-md p-2 w-[100px] h-[40px] flex items-center justify-center gap-1 text-sm"
                 href={brand.website}
                 target="_blank"
               >

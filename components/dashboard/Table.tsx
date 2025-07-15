@@ -13,13 +13,7 @@ import { FaArrowDown, FaArrowUp, FaBan, FaPen, FaTrash } from "react-icons/fa6";
 //   "bg-[#fff4e8]", // peach cream
 //   "bg-[#fce7ee]", // soft rose
 // ];
-const defaultColors = [
-  "bg-[#e7f0fd]", // Baby Blue - A soft, soothing light blue.
-  "bg-[#e7fbf1]", // Mint Cream - A very gentle, almost white, light green.
-  "bg-[#f0f8ff]", // Alice Blue - An even lighter, almost ethereal blue.
-  "bg-[#f5fffa]", // Mint Green Light - A slightly cooler, very subtle light green.
-  "bg-[#e7fbf1]", // Mint Cream - A very gentle, almost white, light green.
-];
+const defaultColors = ["bg-[#f1fbf9]", "bg-[#f5fffa]"];
 
 function Table<T extends { _id: string; order?: number }>({
   data,
@@ -43,7 +37,7 @@ function Table<T extends { _id: string; order?: number }>({
         "_id",
         "description",
         "more_about",
-        // "order",
+        "order",
         "terms_and_conditions",
         "view_count",
       ].includes(field as string)
@@ -328,7 +322,7 @@ function Table<T extends { _id: string; order?: number }>({
                       }
                     ></div>
                     <div
-                      className={`td-main relative  w-[full] flex items-center align-middle p-2 text-gray-800 h-[50px] ${
+                      className={`td-main relative w-full flex items-center align-middle p-2 text-gray-800 h-[50px] ${
                         colors[c % colors.length]
                       }`}
                     >

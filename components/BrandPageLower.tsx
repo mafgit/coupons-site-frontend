@@ -20,8 +20,8 @@ const BrandPageCoupons = ({
   const [shownCoupons, setShownCoupons] = useState<ICoupon[]>(brand.coupons!);
 
   return (
-    <div className="flex gap-2 justify-stretch items-stretch max-w-[1100px]  mt-[30px]  mx-auto">
-      <div className="flex flex-col gap-2 w-[70%] h-full">
+    <div className="flex flex-col md:flex-row gap-6 md:gap-2 justify-stretch items-stretch max-w-[1100px] w-[95%] mt-[30px]  mx-auto">
+      <div className="flex flex-col gap-2 w-full md:w-[70%] h-full items-center md:items-start">
         <h2 className="text-2xl font-semibold mb-2">Coupons</h2>
         {shownCoupons.length ? (
           shownCoupons.map((coupon: ICoupon) => (
@@ -36,7 +36,7 @@ const BrandPageCoupons = ({
         )}
       </div>
 
-      <div className="flex flex-col gap-4 h-full items-start bg-white w-[30%] rounded-md p-4">
+      <div className="flex flex-col gap-4 h-full items-start bg-white w-full md:w-[30%] rounded-md p-4">
         <div className="flex flex-col gap-1 items-center justify-center bg-gray-100 w-full p-2 rounded-md">
           <h3 className="text-md text-center w-full text-gray-700 font-semibold">Ratings By Users</h3>
           <Rating
@@ -61,7 +61,7 @@ const BrandPageCoupons = ({
           setOnlineSale={setOnlineSale}
         />
 
-        <div className="max-w-[300px] text-center">
+        <div className="text-center w-full">
           <h3 className="text-lg text-gray-700 font-semibold">More About {brand.name}</h3>
           <p className="font-light text-sm">{brand.more_about}</p>
         </div>
