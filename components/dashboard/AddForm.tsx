@@ -129,9 +129,12 @@ const AddForm = ({
             }
             key={"field-" + field.label}
           >
-            <label className="text-sm">{capitalize(field.label)}</label>
+            <label htmlFor={field.label} className="text-sm">
+              {capitalize(field.label)}
+            </label>
             {!field.options ? (
               <input
+                id={field.label}
                 className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm "
                 type={field.type || "text"}
                 value={form[field.label]}

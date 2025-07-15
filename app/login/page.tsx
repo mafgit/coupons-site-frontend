@@ -168,8 +168,11 @@ const LoginPage = () => {
 
           {isSignup && (
             <div className="flex flex-col gap-2 items-start justify-center">
-              <label className="text-sm">Fullname</label>
+              <label className="text-sm" htmlFor="name">
+                Fullname
+              </label>
               <input
+                id="name"
                 className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm w-full"
                 type="text"
                 value={name}
@@ -183,8 +186,11 @@ const LoginPage = () => {
           )}
 
           <div className="flex flex-col gap-2 items-start justify-center">
-            <label className="text-sm">Email</label>
+            <label className="text-sm" htmlFor="email">
+              Email
+            </label>
             <input
+              id="email"
               className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm w-full"
               type="email"
               value={email}
@@ -197,8 +203,11 @@ const LoginPage = () => {
           </div>
 
           <div className="flex flex-col gap-2 items-start justify-center">
-            <label className="text-sm">Password</label>
+            <label className="text-sm" htmlFor="password">
+              Password
+            </label>
             <input
+              id="password"
               className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm w-full"
               type="password"
               value={password}
@@ -212,7 +221,9 @@ const LoginPage = () => {
 
           {isSignup && (
             <div className="flex flex-col gap-2 items-start justify-center">
-              <label className="text-sm">Confirm Password</label>
+              <label className="text-sm" htmlFor="confirmPassword">
+                Confirm Password
+              </label>
               <input
                 className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm w-full"
                 type="password"

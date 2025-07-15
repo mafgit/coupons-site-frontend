@@ -6,11 +6,12 @@ import Link from "next/link";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import Table from "./Table";
 import { FaBan } from "react-icons/fa6";
+import { FaPlusCircle } from "react-icons/fa";
 
-const TableContainer = <T extends { _id: string, order?: number }>({
+const TableContainer = <T extends { _id: string; order?: number }>({
   entity,
   searchFields,
-  allowDrag=false,
+  allowDrag = false,
 }: {
   entity: IEntity;
   allowDrag?: boolean;
@@ -152,9 +153,10 @@ const TableContainer = <T extends { _id: string, order?: number }>({
         </h1>
         <Link
           href={`/dashboard/add/${entity}`}
-          className="bg-primary p-2 text-white rounded-md text-sm"
+          className="bg-primary p-2 text-white rounded-md text-sm flex items-center justify-center gap-2 "
         >
-          Add
+          <FaPlusCircle />
+          <span>Add</span>
         </Link>
       </div>
 
@@ -166,10 +168,14 @@ const TableContainer = <T extends { _id: string, order?: number }>({
                 className="flex gap-2 items-center justify-center"
                 key={"search-field-" + (field.label as string)}
               >
-                <label className=" text-gray-600">
+                <label
+                  htmlFor={field.label as string}
+                  className=" text-gray-600"
+                >
                   {capitalize(field.label as string)}
                 </label>
                 <input
+                  id={field.label as string}
                   className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm "
                   type={field.type || "text"}
                   value={queries[field.label as string]}
@@ -186,10 +192,14 @@ const TableContainer = <T extends { _id: string, order?: number }>({
                 key={"search-field-" + (field.label as string)}
               >
                 {" "}
-                <label className=" text-gray-600">
+                <label
+                  htmlFor={field.label as string}
+                  className=" text-gray-600"
+                >
                   {capitalize(field.label as string)}
                 </label>
                 <select
+                  id={field.label as string}
                   className="px-2 py-2 bg-gray-50 text-gray-900 rounded-lg border-none outline-primary text-sm"
                   required={field.required ?? true}
                   value={queries[field.label as string]}

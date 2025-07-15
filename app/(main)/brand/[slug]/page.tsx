@@ -1,10 +1,7 @@
-import Coupon from "@/components/Coupon";
-import InteractiveRating from "@/components/InteractiveRating";
-import Rating from "@/components/Rating";
-import { ICoupon } from "@/types/ICoupon";
 import Image from "next/image";
 import Link from "next/link";
 import { FaChevronRight, FaUsers } from "react-icons/fa6";
+import BrandPageLower from '@/components/BrandPageLower';
 
 const BrandPage = async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params;
@@ -12,6 +9,7 @@ const BrandPage = async ({ params }: { params: { slug: string } }) => {
     const { brand, your_rating } = await fetch(
       `http://localhost:5000/api/brand/by-slug/${slug}`
     ).then((res) => res.json());
+
     return (
       <div className="mb-[100px] mt-[20px]">
         <div className="bg-white rounded-2xl w-[95%] mt-[10px] mx-auto">
@@ -43,40 +41,7 @@ const BrandPage = async ({ params }: { params: { slug: string } }) => {
           </div>
         </div>
 
-        <div className="flex gap-2 justify-stretch items-stretch max-w-[1100px]  mt-[30px]  mx-auto">
-          <div className="flex flex-col gap-2 w-[70%] h-full">
-            <h2 className="text-2xl font-semibold mb-2">Coupons</h2>
-            {brand.coupons.length ? brand.coupons.map((coupon: ICoupon) => (
-              <Coupon
-                coupon={coupon}
-                key={coupon._id}
-                brand_image={brand.image}
-              />
-            )) : <p className="text-gray-700">No Coupons Yet</p>}
-          </div>
-
-          <div className="flex flex-col gap-4 h-full w-full items-end">
-            <h2 className="text-lg font-semibold mb-2">
-              More About {brand.name}
-            </h2>
-
-            <div className="flex flex-col gap-1 items-center justify-center bg-gray-200  p-2 rounded-md">
-              <h3 className="text-md text-center w-full">Ratings By Users</h3>
-              <Rating
-                number={brand.rating ?? 0}
-                rating_count={brand.rating_count ?? 0}
-              />
-            </div>
-
-            <div className="flex flex-col gap-1 items-center justify-center bg-gray-200 p-2 rounded-md">
-              <h3 className="text-md text-center w-full">Your Rating</h3>
-              <InteractiveRating
-                number={your_rating ?? 0}
-                brandId={brand._id}
-              />
-            </div>
-          </div>
-        </div>
+        <BrandPageLower brand={brand} your_rating={your_rating} />
       </div>
     );
   } catch (error) {

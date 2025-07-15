@@ -11,7 +11,7 @@ const Brands = () => {
         { label: "category", type: "text", options: true },
         { label: "slug", type: "text" },
       ]}
-      allowDrag={true}
+      // allowDrag={true}
     />
   );
 };

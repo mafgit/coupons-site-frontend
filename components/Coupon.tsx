@@ -54,14 +54,14 @@ const Coupon = ({
               await openCouponPopup(coupon._id);
             }}
           >
-            Get Deal
+            {coupon.type === "deal" ? "Get Deal" : "Get Voucher"}
           </button>
           {coupon.verified ? (
-            <span className="text-white bg-[#937ef3] p-1 rounded-md text-xs text-center">
+            <span className="text-white bg-[#937ef3] p-1 rounded-md text-xs text-center w-min ml-auto">
               VERIFIED
             </span>
           ) : (
-            <span className="text-white bg-[#f0964d] p-1 rounded-md text-xs text-center">
+            <span className="text-white bg-[#f0964d] p-1 rounded-md text-xs text-center w-min ml-auto">
               UNVERIFIED
             </span>
           )}

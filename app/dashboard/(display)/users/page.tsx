@@ -5,7 +5,7 @@ const Users = () => {
   return (
     <TableContainer<IUser>
       entity="user"
-      allowDrag={true}
+      // allowDrag={true}
       searchFields={[
         { label: "_id", type: "text" },
         { label: "name", type: "text" },

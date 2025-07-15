@@ -18,15 +18,8 @@ const defaultColors = [
   "bg-[#e7fbf1]", // Mint Cream - A very gentle, almost white, light green.
   "bg-[#f0f8ff]", // Alice Blue - An even lighter, almost ethereal blue.
   "bg-[#f5fffa]", // Mint Green Light - A slightly cooler, very subtle light green.
+  "bg-[#e7fbf1]", // Mint Cream - A very gentle, almost white, light green.
 ];
-
-// const defaultColors = [
-//   "bg-[#D0F0C0]",
-//   "bg-[#C8FAD6]",
-//   "bg-[#BCCDA4]",
-//   "bg-[#ACE1AF]",
-//   "bg-[#C5E8B6]",
-// ];
 
 function Table<T extends { _id: string; order?: number }>({
   data,
@@ -50,7 +43,8 @@ function Table<T extends { _id: string; order?: number }>({
         "_id",
         "description",
         "more_about",
-        "order",
+        // "order",
+        "terms_and_conditions",
         "view_count",
       ].includes(field as string)
   );
@@ -58,9 +52,9 @@ function Table<T extends { _id: string; order?: number }>({
   const [ascending, setAscending] = useState<boolean>(true);
   const [shownData, setShownData] = useState<T[]>([]);
   const [dragging, setDragging] = useState(false);
-  const [draggedRows, setDraggedRows] = useState<
-    { _id: string; order: number }[]
-  >([]);
+  // const [draggedRows, setDraggedRows] = useState<
+  //   { _id: string; order: number }[]
+  // >([]);
 
   // const refs = useRef<(null | HTMLElement)[]>(
   //   Array.from({ length: data.length }).fill(null) as Array<null | HTMLElement>
@@ -70,7 +64,6 @@ function Table<T extends { _id: string; order?: number }>({
 
   const onDragStart = (e: any, id: any) => {
     if (!allowDrag) return;
-    setDragging(true);
     // e.dataTransfer.effectAllowed = "move";
     setDraggingIdx(id);
   };
@@ -102,15 +95,14 @@ function Table<T extends { _id: string; order?: number }>({
       return clearDragStates();
     }
 
-    console.log('draggingIdx, draggedOverIdx', draggingIdx, draggedOverIdx);
-    
+    console.log("draggingIdx, draggedOverIdx", draggingIdx, draggedOverIdx);
 
     const draggedId = shownData[draggingIdx]._id;
     const before =
       draggedOverIdx - 1 >= 0 ? shownData[draggedOverIdx - 1].order : null;
     const after = shownData[draggedOverIdx].order;
 
-    console.log(before, after);
+    // console.log(before, after);
     let newData = [...shownData];
     const [removed] = newData.splice(draggingIdx, 1);
 
@@ -120,14 +112,14 @@ function Table<T extends { _id: string; order?: number }>({
       removed.order = ((before as number) + (after as number)) / 2;
     }
     newData.splice(draggedOverIdx, 0, removed);
-    setShownData(newData);
+    setShownData(newData.sort((a, b) => a.order! - b.order!));
     // const [removedRef] = refs.current.splice(draggingIdx, 1);
     // refs.current.splice(draggedOverIdx, 0, removedRef);
-    setDraggedRows((draggedRows: any[]) => [
-      ...draggedRows,
-      { _id: draggedId, order: removed.order },
-    ]);
-
+    // setDraggedRows((draggedRows: any[]) => [
+    //   ...draggedRows,
+    //   { _id: draggedId, order: removed.order },
+    // ]);
+    setDragging(true);
     clearDragStates();
   };
 
@@ -170,33 +162,30 @@ function Table<T extends { _id: string; order?: number }>({
   //   );
   // }, [data]);
 
-  useEffect(() => {
-    console.log("draggedRows", draggedRows);
-  }, [draggedRows]);
   return (
     <div className="mt-3">
-      {dragging && draggedRows.length > 0 && (
+      {dragging && (
         <div className="mx-auto flex items-center justify-end py-2 gap-2">
           <button
             onClick={() => {
               fetch(`http://localhost:5000/api/${entity}/reorder`, {
                 method: "POST",
                 body: JSON.stringify({
-                  // draggedId,
-                  // new_order: removed.order,
-                  new_orders: draggedRows,
-                  // draggedId: newData[draggingIdx]._id,
-                  // draggedOverId: newData[draggedOverIdx]._id,
-                  // beforeDraggedOverId:
-                  //   draggedOverIdx - 1 < 0 ? null : newData[draggedOverIdx - 1]._id,
+                  // new_orders: draggedRows,
+                  new_orders: JSON.stringify(shownData.map((d) => d._id)),
                 }),
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
               })
                 .then((res) => {
-                  res.json();
+                  // setDraggedRows([]);
+                  return res.json();
+                })
+                .then((_) => {
+                  setShownData((data) =>
+                    data.map((d, i) => ({ ...d, order: (i + 1) * 100 }))
+                  );
                   setDragging(false);
-                  setDraggedRows([]);
                 })
                 .catch((err) => console.log(err));
               // .finally(() => {});
@@ -207,11 +196,12 @@ function Table<T extends { _id: string; order?: number }>({
           </button>
           <button
             onClick={() => {
-              setShownData(data);
-              setAscending(true);
-              setSortedBy("order");
               setDragging(false);
-              setDraggedRows([]);
+              window.location.reload();
+              // setShownData(data);
+              // setAscending(true);
+              // setSortedBy("order");
+              // setDraggedRows([]);
             }}
             className="bg-red-400 p-2 rounded-md text-white items-center justify-center flex gap-2"
           >
@@ -268,7 +258,8 @@ function Table<T extends { _id: string; order?: number }>({
               <tr
                 key={"tr-" + r}
                 className={
-                  "max-h-[50px] transition-none duration-200 bg-none cursor-grab m-0 p-0"
+                  "max-h-[50px] transition-none duration-200 bg-none m-0 p-0 " +
+                  (allowDrag ? "cursor-grab " : "")
                 }
                 id={row._id}
                 draggable={allowDrag ? true : false}
@@ -277,7 +268,7 @@ function Table<T extends { _id: string; order?: number }>({
                 onDragEnter={(e) => onDragEnter(e, r)}
                 onDrop={(_) => onDrop()}
                 onDragEnd={() => {
-                  setDraggingIdx(-1)
+                  setDraggingIdx(-1);
                   setDraggedOverIdx(-1);
                 }}
                 // ref={(el) => {
