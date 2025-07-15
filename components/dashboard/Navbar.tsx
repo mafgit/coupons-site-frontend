@@ -5,6 +5,7 @@ import ProfilePic from "../ProfilePic";
 
 const Navbar = () => {
   const authenticated = useStore((state) => state.authenticated);
+  const role = useStore((state) => state.role);
 
   return (
     <div className="flex flex-col fixed left-0 top-0 z-40 w-full">
@@ -14,7 +15,7 @@ const Navbar = () => {
           <h1 className="uppercase tracking-widest">Coupon Shop Dashboard</h1>
         </div>
 
-        <ProfilePic authenticated={authenticated} image={""} />
+        <ProfilePic authenticated={authenticated} image={""} role={role} />
       </div>
     </div>
   );

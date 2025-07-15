@@ -36,19 +36,17 @@ const BrandPageCoupons = ({
         )}
       </div>
 
-      <div className="flex flex-col gap-4 h-full w-full items-end">
-        <h2 className="text-lg font-semibold mb-2">More About {brand.name}</h2>
-
-        <div className="flex flex-col gap-1 items-center justify-center bg-gray-200  p-2 rounded-md">
-          <h3 className="text-md text-center w-full">Ratings By Users</h3>
+      <div className="flex flex-col gap-4 h-full items-start bg-white w-[30%] rounded-md p-4">
+        <div className="flex flex-col gap-1 items-center justify-center bg-gray-100 w-full p-2 rounded-md">
+          <h3 className="text-md text-center w-full text-gray-700 font-semibold">Ratings By Users</h3>
           <Rating
             number={brand.rating ?? 0}
             rating_count={brand.rating_count ?? 0}
           />
         </div>
 
-        <div className="flex flex-col gap-1 items-center justify-center bg-gray-200 p-2 rounded-md">
-          <h3 className="text-md text-center w-full">Your Rating</h3>
+        <div className="flex flex-col gap-1 items-center justify-center w-full bg-gray-100 p-2 rounded-md">
+          <h3 className="text-md text-center w-full text-gray-700 font-semibold">Your Rating</h3>
           <InteractiveRating number={your_rating ?? 0} brandId={brand._id} />
         </div>
 
@@ -62,6 +60,11 @@ const BrandPageCoupons = ({
           onlineSale={onlineSale}
           setOnlineSale={setOnlineSale}
         />
+
+        <div className="max-w-[300px] text-center">
+          <h3 className="text-lg text-gray-700 font-semibold">More About {brand.name}</h3>
+          <p className="font-light text-sm">{brand.more_about}</p>
+        </div>
       </div>
     </div>
   );

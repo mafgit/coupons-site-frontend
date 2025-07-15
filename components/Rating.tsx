@@ -8,16 +8,16 @@ const Rating = ({ number, rating_count }: { number: number, rating_count: number
     halfStar = true;
   }
   return (
-    <div className="bg-[#76a6e6]/60 flex items-center justify-center gap-2 w-max p-2 rounded-md">
+    <div className=" flex items-center justify-center gap-2 w-max p-2 rounded-md">
       {new Array(Math.floor(fixedNumber)).fill(0).map((_, i) => (
-        <FaStar className="text-yellow-400" key={"star-" + i} />
+        <FaStar className="text-yellow-500" key={"star-" + i} />
       ))}
-      {halfStar && <FaStarHalfStroke className="text-yellow-400" />}
+      {halfStar && <FaStarHalfStroke className="text-yellow-500" />}
       {new Array(5 - Math.floor(fixedNumber)).fill(0).map((_, i) => (
-        <FaStar className="text-white" key={"star-" + i} />
+        <FaStar className="text-black" key={"star-" + i} />
       ))}
 
-      <p className="text-white text-md">{fixedNumber} <span className="text-xs">({rating_count})</span></p>
+      <p className="text-black text-md">{fixedNumber} <span className="text-xs">({rating_count})</span></p>
     </div>
   );
 };

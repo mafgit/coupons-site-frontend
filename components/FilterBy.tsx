@@ -97,7 +97,7 @@ const FilterBy = ({
   }, [all, voucherCode, onlineSale]);
 
   return (
-    <div className="flex flex-col gap-2 items-start justify-center min-w-[120px] bg-gray-200  p-4 rounded-md">
+    <div className="flex flex-col gap-2 items-start justify-center w-full bg-gray-100  p-4 rounded-md">
       <h3 className="text-md text-center w-full text-gray-700 font-semibold">Filter by</h3>
 
       <FilterByInput

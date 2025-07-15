@@ -28,11 +28,11 @@ const InteractiveRating = ({
   }, [yourRating]);
 
   return (
-    <div className="bg-[#76a6e6] flex items-center justify-center gap-2 w-max p-3 py-3 rounded-md">
+    <div className="flex items-center justify-center gap-2 w-max p-3 py-3 rounded-md">
       {new Array(Math.floor(5)).fill(0).map((_, i) =>
         i + 1 <= yourRating ? (
           <FaStar
-            className="hover:scale-125 duration-100 transition-all text-yellow-400 cursor-pointer"
+            className="hover:scale-125 duration-100 transition-all text-yellow-500 cursor-pointer"
             onClick={() => {
               setYourRating(i + 1);
             }}
@@ -40,7 +40,7 @@ const InteractiveRating = ({
           />
         ) : (
           <FaStar
-            className="hover:scale-125 duration-100 transition-all text-white cursor-pointer"
+            className="hover:scale-125 duration-100 transition-all text-black cursor-pointer"
             onClick={() => {
               setYourRating(i + 1);
             }}

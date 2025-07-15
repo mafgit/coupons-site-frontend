@@ -1,18 +1,21 @@
 "use client";
 import useStore from "@/hooks/useStore";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { FaSignOutAlt } from "react-icons/fa";
+import { FaLockOpen } from "react-icons/fa6";
 const ProfilePic = ({
   image,
   authenticated,
+  role,
 }: {
   image: string;
   authenticated: boolean;
+  role: "admin" | "user" | undefined;
 }) => {
-  const router = useRouter();
+  // const router = useRouter();
   const logout = useStore((state) => state.logout);
-
+console.log(role)
   return authenticated ? (
     <div className="profile-pic relative">
       <img
@@ -27,14 +30,23 @@ const ProfilePic = ({
               await logout();
             } finally {
               // router.refresh();
-              window.location.reload()
+              window.location.reload();
             }
           }}
-          className="p-2 bg-red-400 text-white rounded-sm flex items-center justify-center gap-2"
+          className="text-sm p-2 bg-red-400 text-white rounded-sm flex items-center justify-center gap-2"
         >
           <FaSignOutAlt />
           <span>Logout</span>
         </button>
+        {role === "admin" && (
+          <Link
+            href="/dashboard"
+            className="text-sm p-2 bg-blue-400 text-white rounded-sm flex items-center justify-center gap-2"
+          >
+            <FaLockOpen />
+            <span>Dashboard</span>
+          </Link>
+        )}
       </div>
     </div>
   ) : (

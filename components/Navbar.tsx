@@ -10,9 +10,9 @@ import ProfilePic from "./ProfilePic";
 
 const Navbar = () => {
   const [text, setText] = useState("");
-  // const categories = useStore((state) => state.categories);
   const [categories, setCategories] = useState<ICategory[]>([]);
   const openSearch = useStore((s) => s.openSearch);
+  const role = useStore((state) => state.role);
   
   useEffect(() => {
     fetch("http://localhost:5000/api/category/all")
@@ -26,7 +26,9 @@ const Navbar = () => {
   return (
     <div className="flex flex-col fixed left-0 top-0 z-40 w-full">
       <div className="flex px-8 items-center justify-between w-full bg-background border-b-1 border-primary/40">
-        <Image src="/next.svg" alt="logo" width={100} height={100} />
+        <Link href="/">
+          <Image src="/next.svg" alt="logo" width={100} height={100} />
+        </Link>
 
         <nav className="flex items-center justify-center gap-6 text-sm">
           <Link
@@ -73,7 +75,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <ProfilePic image={""} authenticated={authenticated} />
+          <ProfilePic image={""} authenticated={authenticated} role={role} />
         </nav>
       </div>
     </div>
